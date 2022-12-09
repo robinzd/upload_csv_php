@@ -54,6 +54,10 @@ if (isset($_POST['importSubmit'])) {
                     echo $status;
                     echo "<br>";
                 }
+                // First delete All The Data In The another Database //
+                $delete_query ="delete * FROM not_inserted_students_details";
+                $result = mysqli_query($db, $delete_query);
+                // Insereted Data Into The Another Database //
                 if ($rowcount > 0) {
                     echo "how are you";
                     echo "<br>";

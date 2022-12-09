@@ -44,7 +44,6 @@ if (!empty($_GET['status'])) {
         margin-left: 30px;
     }
 </style>
-
 <body>
     <div id="wrap">
         <div class="container">
@@ -84,9 +83,10 @@ if (!empty($_GET['status'])) {
     <?php if (!empty($statusMsg)) {
     ?>
         <div class="col-xs-5">
-            <div class="alert <?php echo $statusType; ?>"><?php echo $statusMsg; ?></div>
+            <div class="alert <?php echo $statusType; ?>"><?php echo $statusMsg;?></div>
         </div>
     <?php }
     ?>
 </body>
+
 </html>

@@ -48,7 +48,7 @@ if (!empty($_GET['status'])) {
     <div id="wrap">
         <div class="container">
             <div class="row">
-                <form class="form-horizontal" action="function.php" method="post" name="upload_excel" enctype="multipart/form-data">
+                <form class="form-horizontal" action="import_csv.php" method="post" name="upload_excel" enctype="multipart/form-data">
                     <fieldset>
                         <!-- Form Name -->
                         <legend>Import File Here</legend>
@@ -75,7 +75,7 @@ if (!empty($_GET['status'])) {
     if ($statusType == 'alert-success' && $not_inserted > 0) {
         echo "<h5 id='instruction'>File Attached With The Not Inserted Datas Click To Download The Attachment</h5>";
         echo "<div class='container'>
-        <button class='btn btn-primary' type='button'>Download CSV File</button>
+        <a href='export_csv.php'><button class='btn btn-primary' type='button'>Download CSV File</button></a>
        </div><br>";
     }
     ?>
@@ -88,5 +88,4 @@ if (!empty($_GET['status'])) {
     <?php }
     ?>
 </body>
-
 </html>

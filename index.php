@@ -32,18 +32,10 @@ if (!empty($_GET['status'])) {
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" crossorigin="anonymous">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" crossorigin="anonymous">
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" crossorigin="anonymous"></script>
+    <!-- link the external stylesheet -->
+    <link rel="stylesheet" type="text/css" href="./index.css">
 </head>
-<style>
-    .col-xs-5 {
-        text-align: center !important;
-        white-space: nowrap !important;
-    }
 
-    #instruction {
-        color: red;
-        margin-left: 30px;
-    }
-</style>
 <body>
     <div id="wrap">
         <div class="container">
@@ -56,13 +48,13 @@ if (!empty($_GET['status'])) {
                         <div class="form-group">
                             <label class="col-md-4 control-label" for="filebutton">Select File</label>
                             <div class="col-md-4">
-                                <input type="file" name="file" id="file" class="input-large">
+                                <input type="file" class=file name="file" id="file" class="input-large">
                             </div>
                         </div>
                         <!-- Button -->
                         <div class="form-group">
                             <label class="col-md-4 control-label" for="singlebutton">Import data</label>
-                            <div class="col-md-4">
+                            <div class="col-md-4" id="importbutton">
                                 <button type="submit" id="submit" name="importSubmit" class="btn btn-primary button-loading" data-loading-text="Loading...">Import</button>
                             </div>
                         </div>
@@ -70,15 +62,14 @@ if (!empty($_GET['status'])) {
                 </form>
             </div>
         </div>
-    </div>
-    <?php
-    if ($statusType == 'alert-success' && $not_inserted > 0) {
-        echo "<h5 id='instruction'>File Attached With The Not Inserted Datas Click To Download The Attachment</h5>";
-        echo "<div class='container'>
+        <?php
+        if ($statusType == 'alert-success' && $not_inserted > 0) {
+            echo "<h5 id='instruction'>File Attached With The Duplicate Datas That was Not Inserted Click To Download The Attachment</h5>";
+            echo "<div class='container'>
         <a href='export_csv.php'><button class='btn btn-primary' type='button'>Download CSV File</button></a>
        </div><br>";
-    }
-    ?>
+        }
+        ?>
     </div>
     <?php if (!empty($statusMsg)) {
     ?>
@@ -87,5 +78,67 @@ if (!empty($_GET['status'])) {
         </div>
     <?php }
     ?>
+    </div>
+    <?php if($statusType == 'alert-success' || $not_inserted > 0 || $inserted > 0 ||$statusType == 'alert-danger'){?>
+    <div class="table-responsive col-xs-12">
+        <div class="table-wrapper">
+            <div align="right" class="container">
+                <a href="./delete_all.php"><button type="button" class="btn btn-danger">Delete All</button></a>
+            </div>
+            <div class="table-title">
+                <div class="row">
+                    <div class="col-sm-5">
+                        <h2>Students Details Management</h2>
+                    </div>
+                </div>
+            </div>
+            <table class="table table-striped table-hover">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>User Name</th>
+                        <th>Mobile Number</th>
+                        <th>Gender</th>
+                        <th>City</th>
+                        <th>Email</th>
+                        <th>User Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php
+                    $ret = mysqli_query($db, "select * from students_details");
+                    $cnt = 1;
+                    $row = mysqli_num_rows($ret);
+                    if ($row > 0) {
+                        while ($row = mysqli_fetch_array($ret)) {
+
+                    ?>
+                            <!--Fetch the Records -->
+                            <tr>
+                                <td><?php echo $cnt; ?></td>
+                                <td><?php echo $row['user_name']; ?></td>
+                                <td><?php echo $row['mobile_number']; ?></td>
+                                <td><?php echo $row['gender']; ?></td>
+                                <td><?php echo $row['city']; ?></td>
+                                <td><?php echo $row['email']; ?></td>
+                                <td><?php echo $row['user_status']; ?></td>
+                            </tr>
+                        <?php
+                            $cnt = $cnt + 1;
+                        }
+                    } else { ?>
+                        <tr>
+                            <th style="text-align:center; color:red;" colspan="7">No Record Found</th>
+                        </tr>
+                    <?php } ?>
+
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+
+    <?php }?>
 </body>
+
 </html>

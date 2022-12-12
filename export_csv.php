@@ -9,11 +9,11 @@ if ($query->num_rows > 0) {
     // Create a file pointer 
     $f = fopen('php://memory', 'w');
     // Set column headers 
-    $fields = array('UserName', 'Mobile Number', 'Gender', 'City', 'Email', 'User Status');
+    $fields = array('Id', 'UserName', 'Mobile Number', 'Gender', 'City', 'Email', 'User Status');
     fputcsv($f, $fields, $delimiter);
     // Output each row of the data, format line as csv and write to file pointer 
     while ($row = $query->fetch_assoc()) {
-        $lineData = array($row['user_name'], $row['mobile_number'], $row['gender'], $row['city'], $row['email'], $row['user_status']);
+        $lineData = array($row['ID'], $row['user_name'], $row['mobile_number'], $row['gender'], $row['city'], $row['email'], $row['user_status']);
         fputcsv($f, $lineData, $delimiter);
     }
     // Move back to beginning of file 

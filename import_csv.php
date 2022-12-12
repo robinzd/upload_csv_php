@@ -2,7 +2,7 @@
 include('./connection.php');
 if (isset($_POST['importSubmit'])) {
     // First delete All The Data In The another Database Query Starts//
-    $delete_query = mysqli_query($db, "Delete from `not_inserted_students_details`");
+    $delete_query = mysqli_query($db, "TRUNCATE TABLE not_inserted_students_details;");
     // First delete All The Data In The another Database Query Ends//
     // Allowed mime types
     $csvMimes = array('text/x-comma-separated-values', 'text/comma-separated-values', 'application/octet-stream', 'application/vnd.ms-excel', 'application/x-csv', 'text/x-csv', 'text/csv', 'application/csv', 'application/excel', 'application/vnd.msexcel', 'text/plain');
@@ -46,7 +46,7 @@ if (isset($_POST['importSubmit'])) {
                         $db->query("UPDATE students_details SET user_name = '" . $name . "', mobile_number = '" . $mobile_number . "', gender = '" . $gender . "',city = '" . $city . "',email = '" . $email_id . "',user_status = '" . $status . "' WHERE email = '" . $email_id . "'");
                     } else {
                         // Insert member data in the database
-                        $db->query("INSERT INTO students_details (user_name,mobile_number,gender,city,email,user_status) VALUES ('" . $name . "','" . $mobile_number . "', '" . $gender . "','" . $city . "','" . $email_id . "','" . $status . "')");
+                        $inserted_query=$db->query("INSERT INTO students_details (user_name,mobile_number,gender,city,email,user_status) VALUES ('" . $name . "','" . $mobile_number . "', '" . $gender . "','" . $city . "','" . $email_id . "','" . $status . "')");
                         //data that inserting into the database//
                         $no_of_data_inserted = 1;
                         $username = $name;
@@ -56,7 +56,9 @@ if (isset($_POST['importSubmit'])) {
                         $emailid = $email_id;
                         $user_status = $status;
                         $inserted_data += $no_of_data_inserted;
+                      
                     }
+
                 }
             // Close opened CSV file
             fclose($csvFile);
@@ -69,4 +71,7 @@ if (isset($_POST['importSubmit'])) {
     }
 }
 // Redirect to the listing page
-header("Location: index.php?inserted=$inserted_data&NotInserted=$not_inserted_data&$qstring");
+if($inserted_query){
+    echo "<script>alert('Successfully Inserted All Records');</script>"; 
+}
+echo "<script>window.location.href = 'index.php?inserted=$inserted_data&NotInserted=$not_inserted_data&$qstring'</script>";

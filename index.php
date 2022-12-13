@@ -79,7 +79,7 @@ if (!empty($_GET['status'])) {
     <?php }
     ?>
     </div>
-    <?php if ($statusType == 'alert-success' || $not_inserted > 0 || $inserted > 0 || $statusType == 'alert-danger') { ?>
+    <?php if ($statusType == 'alert-success' || $not_inserted > 0 || $inserted > 0 || $statusType == 'alert-danger' || $not_inserted == '' || $inserted == '') { ?>
         <div class="table-responsive col-xs-12">
             <div class="table-wrapper">
                 <div align="right" class="container">

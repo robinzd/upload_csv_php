@@ -42,24 +42,22 @@ if (isset($_POST['importSubmit'])) {
                 }
                 // Insereted Data Into The Another Database Query Ends//
                 if ($rowcount > 0) {
-                        // Update member data in the database
-                        $db->query("UPDATE students_details SET user_name = '" . $name . "', mobile_number = '" . $mobile_number . "', gender = '" . $gender . "',city = '" . $city . "',email = '" . $email_id . "',user_status = '" . $status . "' WHERE email = '" . $email_id . "'");
-                    } else {
-                        // Insert member data in the database
-                        $inserted_query=$db->query("INSERT INTO students_details (user_name,mobile_number,gender,city,email,user_status) VALUES ('" . $name . "','" . $mobile_number . "', '" . $gender . "','" . $city . "','" . $email_id . "','" . $status . "')");
-                        //data that inserting into the database//
-                        $no_of_data_inserted = 1;
-                        $username = $name;
-                        $mobilenumber = $mobile_number;
-                        $usergender = $gender;
-                        $usercity = $city;
-                        $emailid = $email_id;
-                        $user_status = $status;
-                        $inserted_data += $no_of_data_inserted;
-                      
-                    }
-
+                    // Update member data in the database
+                    $db->query("UPDATE students_details SET user_name = '" . $name . "', mobile_number = '" . $mobile_number . "', gender = '" . $gender . "',city = '" . $city . "',email = '" . $email_id . "',user_status = '" . $status . "' WHERE email = '" . $email_id . "'");
+                } else {
+                    // Insert member data in the database
+                    $inserted_query = $db->query("INSERT INTO students_details (user_name,mobile_number,gender,city,email,user_status) VALUES ('" . $name . "','" . $mobile_number . "', '" . $gender . "','" . $city . "','" . $email_id . "','" . $status . "')");
+                    //data that inserting into the database//
+                    $no_of_data_inserted = 1;
+                    $username = $name;
+                    $mobilenumber = $mobile_number;
+                    $usergender = $gender;
+                    $usercity = $city;
+                    $emailid = $email_id;
+                    $user_status = $status;
+                    $inserted_data += $no_of_data_inserted;
                 }
+            }
             // Close opened CSV file
             fclose($csvFile);
             $qstring = 'status=succ';
@@ -71,7 +69,7 @@ if (isset($_POST['importSubmit'])) {
     }
 }
 // Redirect to the listing page
-if($inserted_query){
-    echo "<script>alert('Successfully Inserted All Records');</script>"; 
+if ($inserted_query) {
+    echo "<script>alert('Successfully Inserted All Records');</script>";
 }
 echo "<script>window.location.href = 'index.php?inserted=$inserted_data&NotInserted=$not_inserted_data&$qstring'</script>";

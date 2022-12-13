@@ -74,71 +74,71 @@ if (!empty($_GET['status'])) {
     <?php if (!empty($statusMsg)) {
     ?>
         <div class="col-xs-5">
-            <div class="alert <?php echo $statusType; ?>"><?php echo $statusMsg;?></div>
+            <div class="alert <?php echo $statusType; ?>"><?php echo $statusMsg; ?></div>
         </div>
     <?php }
     ?>
     </div>
-    <?php if($statusType == 'alert-success' || $not_inserted > 0 || $inserted > 0 ||$statusType == 'alert-danger'){?>
-    <div class="table-responsive col-xs-12">
-        <div class="table-wrapper">
-            <div align="right" class="container">
-                <a href="./delete_all.php"><button type="button" class="btn btn-danger">Delete All</button></a>
-            </div>
-            <div class="table-title">
-                <div class="row">
-                    <div class="col-sm-5">
-                        <h2>Students Details Management</h2>
+    <?php if ($statusType == 'alert-success' || $not_inserted > 0 || $inserted > 0 || $statusType == 'alert-danger') { ?>
+        <div class="table-responsive col-xs-12">
+            <div class="table-wrapper">
+                <div align="right" class="container">
+                    <a href="./delete_all.php"><button type="button" class="btn btn-danger">Delete All</button></a>
+                </div>
+                <div class="table-title">
+                    <div class="row">
+                        <div class="col-sm-5">
+                            <h2>Students Details Management</h2>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <table class="table table-striped table-hover">
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>User Name</th>
-                        <th>Mobile Number</th>
-                        <th>Gender</th>
-                        <th>City</th>
-                        <th>Email</th>
-                        <th>User Status</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <?php
-                    $ret = mysqli_query($db, "select * from students_details");
-                    $cnt = 1;
-                    $row = mysqli_num_rows($ret);
-                    if ($row > 0) {
-                        while ($row = mysqli_fetch_array($ret)) {
-
-                    ?>
-                            <!--Fetch the Records -->
-                            <tr>
-                                <td><?php echo $cnt; ?></td>
-                                <td><?php echo $row['user_name']; ?></td>
-                                <td><?php echo $row['mobile_number']; ?></td>
-                                <td><?php echo $row['gender']; ?></td>
-                                <td><?php echo $row['city']; ?></td>
-                                <td><?php echo $row['email']; ?></td>
-                                <td><?php echo $row['user_status']; ?></td>
-                            </tr>
-                        <?php
-                            $cnt = $cnt + 1;
-                        }
-                    } else { ?>
+                <table class="table table-striped table-hover">
+                    <thead>
                         <tr>
-                            <th style="text-align:center; color:red;" colspan="7">No Record Found</th>
+                            <th>ID</th>
+                            <th>User Name</th>
+                            <th>Mobile Number</th>
+                            <th>Gender</th>
+                            <th>City</th>
+                            <th>Email</th>
+                            <th>User Status</th>
                         </tr>
-                    <?php } ?>
+                    </thead>
+                    <tbody>
+                        <?php
+                        $ret = mysqli_query($db, "select * from students_details");
+                        $cnt = 1;
+                        $row = mysqli_num_rows($ret);
+                        if ($row > 0) {
+                            while ($row = mysqli_fetch_array($ret)) {
 
-                </tbody>
-            </table>
+                        ?>
+                                <!--Fetch the Records -->
+                                <tr>
+                                    <td><?php echo $cnt; ?></td>
+                                    <td><?php echo $row['user_name']; ?></td>
+                                    <td><?php echo $row['mobile_number']; ?></td>
+                                    <td><?php echo $row['gender']; ?></td>
+                                    <td><?php echo $row['city']; ?></td>
+                                    <td><?php echo $row['email']; ?></td>
+                                    <td><?php echo $row['user_status']; ?></td>
+                                </tr>
+                            <?php
+                                $cnt = $cnt + 1;
+                            }
+                        } else { ?>
+                            <tr>
+                                <th style="text-align:center; color:red;" colspan="7">No Record Found</th>
+                            </tr>
+                        <?php } ?>
 
+                    </tbody>
+                </table>
+
+            </div>
         </div>
-    </div>
 
-    <?php }?>
+    <?php } ?>
 </body>
 
 </html>
